@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,10 @@
     "url": "https://github.com/AutumnStarz/streaming-media-assignment/issues"
   },
   "homepage": "https://github.com/AutumnStarz/streaming-media-assignment#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.31.0"
+  }
 }
