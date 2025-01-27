@@ -11,17 +11,17 @@ const onRequest = (request, response) => {
     case '/':
       htmlHandler.getIndex(request, response);
       break;
+    case '/party.mp4':
+      mediaHandler.getParty(request, response);
+      break;
     default:
       htmlHandler.getIndex(request, response);
       break;
   }
-
 };
 
 http.createServer(onRequest).listen(port, () => {
   console.log(`Listening on ${port}`);
-
 });
 
-
-//start at #16
+// start at #24
