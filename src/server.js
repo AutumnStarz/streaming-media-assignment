@@ -5,23 +5,42 @@ const mediaHandler = require('./mediaResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const onRequest = (request, response) => {
-  console.log(request.url);
+  console.log(`Received request for: ${request.url}`);
 
   switch (request.url) {
-    case '/':
+    case '/': // Serve the main HTML page
       htmlHandler.getIndex(request, response);
       break;
-    case '/party.mp4':
+
+    case '/party.mp4': // Serve the party.mp4 video
       mediaHandler.getParty(request, response);
       break;
-    default:
-      htmlHandler.getIndex(request, response);
+
+    case '/bling.mp3': // Serve the bling.mp3 audio
+      mediaHandler.getBling(request, response);
+      break;
+
+    case '/bird.mp4': // Serve the bird.mp4 video
+      mediaHandler.getBird(request, response);
+      break;
+
+    case '/page2': // Serve the client2.html page
+      htmlHandler.getPage2(request, response);
+      break;
+
+    case '/page3': // Serve the client3.html page
+      htmlHandler.getPage3(request, response);
+      break;
+
+    default: // Handle unknown routes
+      response.writeHead(404, { 'Content-Type': 'text/plain' });
+      response.write('404 Not Found');
+      response.end();
       break;
   }
 };
 
+// Start the server
 http.createServer(onRequest).listen(port, () => {
-  console.log(`Listening on ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
-
-// start at #24

@@ -1,27 +1,27 @@
+const path = require('path');
 const fs = require('fs');
 
-const path = require('path');
-
-const getParty = (request, response) => {
-  const file = path.resolve(__dirname, '../client/party.mp4');
-
-  fs.stat(file, (err, stats) => {
+const streamFile = (filePath, request, response, contentType) => {
+  fs.stat(filePath, (err, stats) => {
     if (err) {
       if (err.code === 'ENOENT') {
         response.writeHead(404);
+        response.end('File not found');
+        return; // return to stop the linter from complaining
       }
-      return response.end(err);
+      response.writeHead(500);
+      response.end('Internal Server Error');
+      return;
     }
-    let { range } = request.headers; // destructuring
+
+    let { range } = request.headers;
 
     if (!range) {
       range = 'bytes=0-';
     }
 
     const positions = range.replace(/bytes=/, '').split('-');
-
     let start = parseInt(positions[0], 10);
-
     const total = stats.size;
     const end = positions[1] ? parseInt(positions[1], 10) : total - 1;
 
@@ -29,16 +29,16 @@ const getParty = (request, response) => {
       start = end - 1;
     }
 
-    const chunksize = (end - start) + 1;
+    const chunkSize = (end - start) + 1;
 
     response.writeHead(206, {
       'Content-Range': `bytes ${start}-${end}/${total}`,
       'Accept-Ranges': 'bytes',
-      'Content-Length': chunksize,
-      'Content-Type': 'video/mp4',
+      'Content-Length': chunkSize,
+      'Content-Type': contentType,
     });
 
-    const stream = fs.createReadStream(file, { start, end });
+    const stream = fs.createReadStream(filePath, { start, end });
 
     stream.on('open', () => {
       stream.pipe(response);
@@ -47,9 +47,27 @@ const getParty = (request, response) => {
     stream.on('error', (streamErr) => {
       response.end(streamErr);
     });
-
-    return stream;
   });
 };
 
-module.exports.getParty = getParty;
+// Handlers for specific media files
+const getParty = (request, response) => {
+  const filePath = path.resolve(__dirname, '../client/party.mp4');
+  streamFile(filePath, request, response, 'video/mp4');
+};
+
+const getBling = (request, response) => {
+  const filePath = path.resolve(__dirname, '../client/bling.mp3');
+  streamFile(filePath, request, response, 'audio/mpeg');
+};
+
+const getBird = (request, response) => {
+  const filePath = path.resolve(__dirname, '../client/bird.mp4');
+  streamFile(filePath, request, response, 'video/mp4');
+};
+
+module.exports = {
+  getParty,
+  getBling,
+  getBird,
+};
