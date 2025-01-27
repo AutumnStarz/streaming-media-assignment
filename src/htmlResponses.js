@@ -15,7 +15,7 @@ const getIndex = (request, response) => {
   });
 };
 
-const getClient2 = (request, response) => {
+const getClient2 = (request, response) => { //get the client2.html file
   const filePath = path.resolve(__dirname, '../client/client2.html');
   fs.readFile(filePath, (err, data) => {
     if (err) {
@@ -29,7 +29,7 @@ const getClient2 = (request, response) => {
   });
 };
 
-const getClient3 = (request, response) => {
+const getClient3 = (request, response) => { //get the client3.html file
   const filePath = path.resolve(__dirname, '../client/client3.html');
   fs.readFile(filePath, (err, data) => {
     if (err) {

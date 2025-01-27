@@ -8,27 +8,27 @@ const onRequest = (request, response) => {
   console.log(`Received request for: ${request.url}`);
 
   switch (request.url) {
-    case '/': // serve the base HTML page
+    case '/': //serve the base HTML page
       htmlHandler.getIndex(request, response);
       break;
 
-    case '/party.mp4': // serve the party.mp4 video
+    case '/party.mp4': //serve the party.mp4 video
       mediaHandler.getParty(request, response);
       break;
 
-    case '/bling.mp3': // serve the bling.mp3 audio
+    case '/bling.mp3': //serve the bling.mp3 audio
       mediaHandler.getBling(request, response);
       break;
 
-    case '/bird.mp4': // serve the bird.mp4 video
+    case '/bird.mp4': //serve the bird.mp4 video
       mediaHandler.getBird(request, response);
       break;
 
-    case '/page2':
+    case '/page2': //serve the client2.html page
       htmlHandler.getClient2(request, response);
       break;
 
-    case '/page3':
+    case '/page3': //serve the client3.html page
       htmlHandler.getClient3(request, response);
       break;
 
@@ -40,7 +40,7 @@ const onRequest = (request, response) => {
   }
 };
 
-// Start the server
+//start the server
 http.createServer(onRequest).listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
