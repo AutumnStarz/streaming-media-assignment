@@ -8,31 +8,23 @@ const onRequest = (request, response) => {
   console.log(`Received request for: ${request.url}`);
 
   switch (request.url) {
-    case '/': // Serve the main HTML page
+    case '/': //serve the base HTML page
       htmlHandler.getIndex(request, response);
       break;
 
-    case '/party.mp4': // Serve the party.mp4 video
+    case '/party.mp4': //serve the party.mp4 video
       mediaHandler.getParty(request, response);
       break;
 
-    case '/bling.mp3': // Serve the bling.mp3 audio
+    case '/bling.mp3': //serve the bling.mp3 audio
       mediaHandler.getBling(request, response);
       break;
 
-    case '/bird.mp4': // Serve the bird.mp4 video
+    case '/bird.mp4': //serve the bird.mp4 video
       mediaHandler.getBird(request, response);
       break;
 
-    case '/page2': // Serve the client2.html page
-      htmlHandler.getPage2(request, response);
-      break;
-
-    case '/page3': // Serve the client3.html page
-      htmlHandler.getPage3(request, response);
-      break;
-
-    default: // Handle unknown routes
+    default: //serve a 404 page
       response.writeHead(404, { 'Content-Type': 'text/plain' });
       response.write('404 Not Found');
       response.end();

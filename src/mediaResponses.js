@@ -7,7 +7,7 @@ const streamFile = (filePath, request, response, contentType) => {
       if (err.code === 'ENOENT') {
         response.writeHead(404);
         response.end('File not found');
-        return; // return to stop the linter from complaining
+        return; //return to stop the linter from complaining (works without it)
       }
       response.writeHead(500);
       response.end('Internal Server Error');
@@ -50,22 +50,22 @@ const streamFile = (filePath, request, response, contentType) => {
   });
 };
 
-// Handlers for specific media files
+//handles the party video
 const getParty = (request, response) => {
   const filePath = path.resolve(__dirname, '../client/party.mp4');
   streamFile(filePath, request, response, 'video/mp4');
 };
-
+//handles the bling audio
 const getBling = (request, response) => {
   const filePath = path.resolve(__dirname, '../client/bling.mp3');
   streamFile(filePath, request, response, 'audio/mpeg');
 };
-
+//handles the bird video
 const getBird = (request, response) => {
   const filePath = path.resolve(__dirname, '../client/bird.mp4');
   streamFile(filePath, request, response, 'video/mp4');
 };
-
+//export the functions
 module.exports = {
   getParty,
   getBling,
