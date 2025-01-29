@@ -6,7 +6,7 @@ const getIndex = (request, response) => {
   fs.readFile(filePath, (err, data) => {
     if (err) { // if an error slides in handle it
       response.writeHead(500, { 'Content-Type': 'text/html' });
-      response.end('<h1>Internal Server Error</h1>');
+      response.end('<h1>Internal Server Error</h1>'); //if something goes wrong, show this so its obvious
       return;
     }
 
@@ -20,7 +20,7 @@ const getClient2 = (request, response) => { //get the client2.html file
   fs.readFile(filePath, (err, data) => {
     if (err) {
       response.writeHead(500, { 'Content-Type': 'text/html' });
-      response.end('<h1>Internal Server Error</h1>');
+      response.end('<h1>Internal Server Error</h1>');  
       return;
     }
 
@@ -34,7 +34,7 @@ const getClient3 = (request, response) => { //get the client3.html file
   fs.readFile(filePath, (err, data) => {
     if (err) {
       response.writeHead(500, { 'Content-Type': 'text/html' });
-      response.end('<h1>Internal Server Error</h1>');
+      response.end('<h1>Internal Server Error</h1>'); 
       return;
     }
 
